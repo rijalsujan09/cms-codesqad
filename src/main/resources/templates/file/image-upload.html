@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="home-container">
+    <h1>Upload Image</h1>
+    <form method="post" enctype="multipart/form-data" th:action="@{/file/image}">
+        <input type="file" name="file" accept="image/*" required/>
+        <button type="submit">Upload</button>
+    </form>
+    <p th:text="${message}"></p>
+    <h2>Uploaded Images</h2>
+    <ul>
+        <li th:each="image : ${images}">
+            <a th:href="@{/file/images/{image}(image=${image})}" th:text="${image}"></a>
+            <img th:src="@{/file/images/{image}(image=${image})}" th:alt="${image}" style="width:200px;height:auto;" />
+        </li>
+    </ul>
+    <form th:action="@{/api/v1/auth/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>

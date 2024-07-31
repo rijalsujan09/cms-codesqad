@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #6a11cb 0%, #2575fc 100%);
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #fff;
+        }
+        .password-toggle {
+            position: relative;
+        }
+        .password-toggle .toggle-icon {
+            position: absolute;
+            top: 75%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h3 class="text-center">Login</h3>
+    <form th:action="@{/web/login}" method="post">
+        <div class="form-group">
+            <label for="username">Username or Email</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username or email" required>
+        </div>
+        <div class="form-group password-toggle">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            <i class="fas fa-eye toggle-icon" onclick="togglePassword('password')"></i>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="text-center mt-3">
+            <a href="#" th:href="@{/web/forgot-password}">Forgot Password?</a> |
+            <a href="#" th:href="@{/web/register}">Register</a>
+        </div>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function togglePassword(id) {
+        const passwordInput = document.getElementById(id);
+        const icon = passwordInput.nextElementSibling;
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
+    }
+</script>
+</body>
+</html>

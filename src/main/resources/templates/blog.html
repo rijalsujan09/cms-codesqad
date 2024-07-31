@@ -1,0 +1,337 @@
+<script src="https://cdn.tiny.cloud/1/prnt1m6tiyqgn3m7bknb8zq8jm0be8own6sgsdufg4q7o7r0/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .buttons {
+        margin-top: 15px;
+    }
+
+    .buttons button {
+        margin-right: 10px;
+    }
+</style>
+<style>
+    .content {
+        flex-grow: 1;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    .container {
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        max-width: 100%;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="file"],
+    .input-group select,
+    .input-group textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    /* Custom skin styling for TinyMCE */
+    .tox .tox-toolbar,
+    .tox .tox-toolbar__primary {
+        background-color: #f3f3f3 !important;
+    }
+
+    .tox .tox-button,
+    .tox .tox-button:active,
+    .tox .tox-button:hover,
+    .tox .tox-button:focus {
+        background-color: #e7e7e7 !important;
+        border-color: #cccccc !important;
+    }
+
+    .tox .tox-button--naked:hover,
+    .tox .tox-button--naked:focus {
+        color: #0056b3 !important;
+    }
+
+    .tox .tox-toolbar-overlord,
+    .tox .tox-editor-container {
+        border-color: #cccccc !important;
+    }
+
+    @media (max-width: 600px) {
+        .tox .tox-toolbar__primary {
+            flex-wrap: wrap !important;
+        }
+
+        .tox .tox-button {
+            font-size: 12px !important;
+            padding: 5px !important;
+        }
+
+        .tox .tox-toolbar__group {
+            margin-right: 5px !important;
+        }
+    }
+
+    .buttons {
+        margin-top: 15px;
+    }
+
+    .buttons button {
+        margin-right: 10px;
+    }
+</style>
+<th xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="fragments/topbar"></th:block>
+    <div id="main-content" class="">
+        <div class="content">
+            <div class="container mt-4">
+                <form id="postForm" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="blogTitle">Blog Title:</label>
+                                <input type="text" class="form-control" id="blogTitle" name="title"
+                                       placeholder="Enter blog title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <input type="text" class="form-control" id="category" name="category"
+                                    placeholder="Enter category" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tags">Tags:</label>
+                                <input type="text" class="form-control" id="tags" name="tags"
+                                    placeholder="Enter tags, separated by commas">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="coverImage">Choose Image:</label>
+                                <input type="file" class="form-control-file" id="coverImage" name="imageFile"
+                                    accept="image/*">
+                                <img id="coverImagePreview" src="#" alt="Image preview"
+                                    style="display:none; margin-top: 10px; max-width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mytextarea">Blog Content:</label>
+                        <textarea id="mytextarea" name="content"></textarea>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Save</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#previewModal"
+                            onclick="showPreview()">See Preview</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#outputModal"
+                            onclick="showOutput()">See Output</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Preview Modal -->
+            <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="previewModalLabel">Live Preview</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="livePreview">Live preview will appear here</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Modal -->
+            <div class="modal fade" id="outputModal" tabindex="-1" role="dialog" aria-labelledby="outputModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="outputModalLabel">HTML Output</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="output">HTML Output will appear here</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <th:block th:include="fragments/footer"></th:block>
+</th>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        plugins: 'preview powerpaste casechange importcss searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist permanentpen formatpainter pageembed a11ychecker linkchecker help emoticons',
+        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview save print | insertfile image media template link anchor codesample | ltr rtl | a11ycheck',
+        toolbar_sticky: true,
+        menubar: 'file edit view insert format tools table tc help',
+        autosave_ask_before_unload: true,
+        autosave_interval: "30s",
+        autosave_prefix: "{path}{query}-{id}-",
+        autosave_restore_when_empty: false,
+        autosave_retention: "2m",
+        image_advtab: true,
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        height: 500,
+        template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+        template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+        noneditable_noneditable_class: 'mceNonEditable',
+        toolbar_mode: 'sliding',
+        contextmenu: 'link image imagetools table configurepermanentpen',
+        powerpaste_allow_local_images: true,
+        skin: 'oxide',
+        content_css: 'default',
+        file_picker_callback: function (callback, value, meta) {
+            if (meta.filetype === 'image') {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                input.onchange = function () {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function () {
+                        var id = 'blobid' + (new Date()).getTime();
+                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                        var base64 = reader.result.split(',')[1];
+                        var blobInfo = blobCache.create(id, file, base64);
+                        blobCache.add(blobInfo);
+
+                        callback(blobInfo.blobUri(), { title: file.name });
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                input.click();
+            }
+        },
+        init_instance_callback: function (editor) {
+            editor.on('Change', function (e) {
+                updatePreview();
+            });
+        }
+    });
+
+    document.getElementById('coverImage').addEventListener('change', function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('coverImagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    function showOutput() {
+        var title = document.getElementById('blogTitle').value;
+        var content = tinymce.get('mytextarea').getContent();
+        var coverImage = document.getElementById('coverImagePreview').src;
+        var output = '<h1>' + escapeHtml(title) + '</h1>';
+        if (coverImage) {
+            output += '<img src="' + escapeHtml(coverImage) + '" alt="Cover Image" style="max-width:100%;">';
+        }
+        output += content;
+        document.getElementById('output').innerHTML = '<pre>' + escapeHtml(output) + '</pre>';
+    }
+
+    function showPreview() {
+        updatePreview();
+    }
+
+    function updatePreview() {
+        var title = document.getElementById('blogTitle').value;
+        var content = tinymce.get('mytextarea').getContent();
+        var coverImage = document.getElementById('coverImagePreview').src;
+        var preview = '<h1>' + escapeHtml(title) + '</h1>';
+        if (coverImage) {
+            preview += '<img src="' + escapeHtml(coverImage) + '" alt="Cover Image" style="max-width:100%;">';
+        }
+        preview += content;
+        document.getElementById('livePreview').innerHTML = preview;
+    }
+
+    function escapeHtml(html) {
+        return html
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    function submitForm() {
+        var title = document.getElementById('blogTitle').value;
+        var category = document.getElementById('category').value;
+        var tags = document.getElementById('tags').value;
+        var content = tinymce.get('mytextarea').getContent();
+        var coverImage = document.getElementById('coverImage').files[0];
+
+        var blogDto = {
+            title: title,
+            category: category,
+            tags: tags,
+            content: content
+        };
+
+        var formData = new FormData();
+        formData.append('blogDto', new Blob([JSON.stringify(blogDto)], { type: "application/json" }));
+        if (coverImage) {
+            formData.append("imageFile", coverImage);
+        }
+
+        fetch('/post/create', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Post created successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error creating post.');
+            });
+    }
+</script>

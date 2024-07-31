@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: rgb(181, 179, 179);
+        }
+
+        .body-content {
+            display: flex;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .nav-section {
+            width: 15%;
+            background-color: aliceblue;
+            border-right: 1px solid #dee2e6;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nav-section.hidden {
+            width: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .logo {
+            display: flex;
+            padding: 15px 25px;
+            order: 1;
+        }
+
+        .nav-menu {
+            margin-bottom: auto;
+            order: 2;
+        }
+
+        .time-info {
+            order: 3;
+            padding: 25px;
+        }
+
+        .user-info {
+            border: 1px solid #dee2e6;
+            order: 4;
+        }
+
+        .my-profile {
+            display: flex;
+            flex-direction: row;
+            padding-left: 25px;
+            align-items: center;
+        }
+
+        .my-profile #icon-user {
+            border: 0.5px solid;
+            border-radius: 50%;
+            padding: 7px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        .my-profile p {
+            margin-left: 10px;
+        }
+
+
+        .toggle-button {
+            position: fixed;
+            bottom: 55px;
+            left: 15%;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0 5px 5px 0;
+            padding: 4px;
+            height: 25px;
+            /* z-index: 2; */
+            transition: left 0.3s ease;
+        }
+
+
+        .main-section {
+            width: 85%;
+            margin-left: 15%;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+
+        #topbar {
+            background-color: aliceblue;
+            border: 1px solid #dee2e6;
+            color: rgb(0, 0, 0);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 17px 25px;
+            position: fixed;
+            width: 85%;
+            top: 0;
+            z-index: 1;
+            transition: width 0.3s ease;
+        }
+
+        #dashboard-content {
+            margin-top: 50px;
+            padding: 25px;
+
+        }
+
+        #footer {
+            background-color: aliceblue;
+            border: 1px solid #dee2e6;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 16px;
+        }
+
+        .content {
+            height: 100px;
+            background-color: #fefefe;
+        }
+
+        /* nav-menu */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .nav-item.active {
+            border-right: 4px solid blue;
+            background-color: #e0e0e0;
+        }
+
+        .nav-item .icon {
+            margin-right: 10px;
+        }
+
+        .sub-menu {
+            display: none;
+            padding-left: 35px;
+            background-color: #f9f9f9;
+        }
+
+        .sub-menu .nav-item {
+            padding: 10px 15px;
+        }
+
+        .nav-item .toggle-icon {
+            margin-left: auto;
+        }
+
+        .parent-menu {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toggle-button" class="toggle-button">
+        <i id="toggle-icon" style="margin-top: 4px;" class="fas fa-chevron-left"></i>
+    </div>
+    <div class="body-content">
+        <div class="nav-section left-section">
+
+            <div class="logo">
+                <a href="">
+                    <img src="/static/images/cs_logo.png" alt="CodeSQAD Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item" onclick="setActive(this)">
+                    <span><span class="icon material-icons">dashboard</span> Dashboard</span>
+                </div>
+                <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                    <span><span class="icon material-icons">article</span> Blog Management</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="sub-menu">
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">edit</span> Manage Blog
+                    </div>
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">category</span> Manage Category
+                    </div>
+                </div>
+                <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                    <span><span class="icon material-icons">group</span> Users & Role</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="sub-menu">
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">person</span> Users
+                    </div>
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">supervisor_account</span> Roles
+                    </div>
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">account_circle</span> My Profile
+                    </div>
+                </div>
+                <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                    <span><span class="icon material-icons">settings</span> Settings</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="sub-menu">
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">build</span> System Setting
+                    </div>
+                    <!-- <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">email</span> SMTP Setting
+                    </div> -->
+                    <div class="nav-item" onclick="setActive(this)">
+                        <span class="icon material-icons">settings_applications</span> My Setting
+                    </div>
+                </div>
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">mail</span> Enquiries
+                </div>
+            </div>
+
+            <div class="time-info">
+                <p class="text-white">Local: <span id="localTime">06/02/24 12:28:11 PM</span></p>
+            </div>
+
+            <div class="user-info">
+                <div class="my-profile">
+                    <i id="icon-user" class="fas fa-user"></i>
+                    <p>Sujan Rijal</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="main-section right-section">
+            <div id="topbar" class="d-flex justify-content-between align-items-center p-3">
+                <div style="font-size: 18px; font-weight: 700;" id="page-name">
+                    Page Name
+                </div>
+                <div style="font-size: 18px; font-weight: 700; margin-right: 50px;">
+                    Notification
+                </div>
+
+            </div>
+            <div id="dashboard-content" class="">
+                <div class="content"></div>
+            </div>
+            <div id="footer" class="text-center p-3 mt-4">
+                Copyright @ <a href="">Codesqad</a> 2024 | All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        const toggleButton = document.getElementById('toggle-button');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const navSection = document.querySelector('.nav-section');
+        const topbar = document.getElementById('topbar');
+        const mainSection = document.querySelector('.main-section');
+
+        toggleButton.addEventListener('click', () => {
+            navSection.classList.toggle('hidden');
+            if (navSection.classList.contains('hidden')) {
+                mainSection.style.marginLeft = '0';
+                topbar.style.width = '100%';
+                mainSection.style.width = '100%';
+                toggleButton.style.left = '0';
+                toggleIcon.classList.remove('fa-chevron-left');
+                toggleIcon.classList.add('fa-chevron-right');
+            } else {
+                mainSection.style.marginLeft = '15%';
+                topbar.style.width = '85%';
+                toggleButton.style.left = '15%';
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-left');
+            }
+        });
+        function toggleMenu(element) {
+            const allSubMenus = document.querySelectorAll('.sub-menu');
+            const allIcons = document.querySelectorAll('.toggle-icon');
+            const subMenu = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
+
+            allSubMenus.forEach(menu => {
+                if (menu !== subMenu) {
+                    menu.style.display = 'none';
+                }
+            });
+
+            allIcons.forEach(ic => {
+                if (ic !== icon) {
+                    ic.classList.remove('fa-chevron-up');
+                    ic.classList.add('fa-chevron-down');
+                }
+            });
+
+            if (subMenu.style.display === 'block') {
+                subMenu.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                subMenu.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+
+            const allNavItems = document.querySelectorAll('.nav-item');
+            allNavItems.forEach(item => item.classList.remove('active'));
+
+            element.classList.add('active');
+        }
+
+        function setActive(element) {
+            const allNavItems = document.querySelectorAll('.nav-item');
+            allNavItems.forEach(item => item.classList.remove('active'));
+
+            element.classList.add('active');
+        }
+
+        function updateTime() {
+            const localTimeElement = document.getElementById('localTime');
+            const now = new Date();
+            const localTime = now.toLocaleString("en-US");
+            localTimeElement.textContent = localTime;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime(); 
+    </script>
+</body>
+
+
+
+</html>

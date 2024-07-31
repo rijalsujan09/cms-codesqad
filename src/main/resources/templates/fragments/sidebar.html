@@ -1,0 +1,71 @@
+<!-- <link rel="stylesheet" th:href="@{/css/index.css}"> -->
+<th xmlns:th="http://www.thymeleaf.org">
+    <div class="nav-section left-section">
+        <div class="logo nav-hide">
+            <a href="">
+                <img th:src="@{/images/cs_logo.png}" alt="CodeSQAD Logo">
+            </a>
+        </div>
+        <div class="nav-menu nav-hide">
+            <div class="nav-item" onclick="setActive(this)">
+                <span><span class="icon material-icons">dashboard</span> Dashboard</span>
+            </div>
+            <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                <span><span class="icon material-icons">article</span> Blog Management</span>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="sub-menu">
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">edit</span> Manage Blog
+                </div>
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">category</span> Manage Category
+                </div>
+            </div>
+            <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                <span><span class="icon material-icons">group</span> Users & Role</span>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="sub-menu">
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">person</span> Users
+                </div>
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">supervisor_account</span> Roles
+                </div>
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">account_circle</span> My Profile
+                </div>
+            </div>
+            <div class="nav-item parent-menu" onclick="toggleMenu(this)">
+                <span><span class="icon material-icons">settings</span> Settings</span>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="sub-menu">
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">build</span> System Setting
+                </div>
+                <!-- <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">email</span> SMTP Setting
+                </div> -->
+                <div class="nav-item" onclick="setActive(this)">
+                    <span class="icon material-icons">settings_applications</span> My Setting
+                </div>
+            </div>
+            <div class="nav-item" onclick="setActive(this)">
+                <span class="icon material-icons">mail</span> Enquiries
+            </div>
+        </div>
+
+        <div class="time-info nav-hide">
+            <p class="text-white">Local: <span id="localTime">06/02/24 12:28:11 PM</span></p>
+        </div>
+
+        <div class="user-info nav-hide">
+            <div class="my-profile">
+                <i id="icon-user" class="fas fa-user"></i>
+                <p>Sujan Rijal</p>
+            </div>
+        </div>
+    </div>
+</th>

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.codesqad'
-version = '0.0.1-SNAPSHOT'
+version = ''
 
 java {
 	sourceCompatibility = '17'
@@ -51,4 +51,14 @@ tasks.named('bootBuildImage') {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+
+
+bootJar {
+	archiveFileName = "cms-codesqad.jar"
+}
+
+jar {
+	enabled = false
 }

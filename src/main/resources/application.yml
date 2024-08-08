@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cms
-    username: sujan
+    username: root
     password: Nunarijal12#
   jpa:
     hibernate:

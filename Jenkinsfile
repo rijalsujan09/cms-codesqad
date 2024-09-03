@@ -43,6 +43,7 @@ pipeline {
 
                             sh '''
                                 mkdir -p $(pwd)/trivy-reports
+
                                 docker run --rm \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     -v $(pwd)/trivy-reports:/root/.cache/ \
@@ -51,12 +52,22 @@ pipeline {
                                     --output trivy-report.txt \
                                     rijalsujan09/cms-codesqad:latest
 
+
+                                echo "<html><body><pre>$(cat trivy-reports/trivy-report.txt)</pre></body></html>" > trivy-reports/trivy-report.html
+
                             '''
                         }
 
                         post {
                             always {
-                                archiveArtifacts artifacts: 'trivy-reports/trivy-report.txt', allowEmptyArchive: true
+                                publishHTML(target: [
+                                    allowMissing: false,
+                                    alwaysLinkToLastBuild: true,
+                                    keepAll: true,
+                                    reportDir: 'trivy-reports',
+                                    reportFiles: 'trivy-report.html',
+                                    reportName: "Trivy Scan Report"
+                                ])
                             }
                         }
         }

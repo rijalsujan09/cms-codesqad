@@ -46,7 +46,7 @@ pipeline {
 
                                 docker run --rm \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
-                                    -v $(pwd)/trivy-reports:/root/.cache/ \
+                                    -v $(pwd)/trivy-reports:/trivy-reports/ \
                                     aquasec/trivy:latest image \
                                     --format table  \
                                     --output trivy-report.txt \

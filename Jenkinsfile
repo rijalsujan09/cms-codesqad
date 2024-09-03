@@ -45,6 +45,7 @@ pipeline {
                                 mkdir -p $(pwd)/trivy-reports
 
                                 docker run --rm \
+                                    --user $(id -u):$(id -g) \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     -v $(pwd)/trivy-reports:/trivy-reports \
                                     aquasec/trivy:latest image \

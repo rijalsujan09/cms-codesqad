@@ -46,14 +46,15 @@ pipeline {
                                     aquasec/trivy:latest image \
                                     rijalsujan09/cms-codesqad:latest
                             '''
-            }
-            steps {
+
                             echo 'Running Trivy Scan...'
                             sh '''
                                 trivy image ${DOCKERHUB_USERNAME}/cms-codesqad:latest
                             '''
-                        }
+
+            }
         }
+
 
         stage ('Publish') {
             steps {

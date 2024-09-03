@@ -65,7 +65,7 @@ pipeline {
     }
    post {
            always {
-               cleanWs() // Clean workspace after build is done
+               cleanWs()
            }
            failure {
                script {
@@ -76,6 +76,8 @@ pipeline {
                        subject: subject,
                        body: message,
                        attachLog: true
+                       retry: 5,
+                       retryWaitIntervalSeconds: 5
                    )
                }
            }
@@ -88,6 +90,8 @@ pipeline {
                        subject: subject,
                        body: message,
                        attachLog: true
+                       retry: 5,
+                       retryWaitIntervalSeconds: 5
                    )
                }
            }

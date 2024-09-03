@@ -47,8 +47,8 @@ pipeline {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
                     sh '''
-                        docker push rijalsujan/cms-codesqad:${BUILD_TIMESTAMP}
-                        docker push rijalsujan/cms-codesqad:latest
+                        docker push ${DOCKERHUB_USERNAME}/cms-codesqad:${BUILD_TIMESTAMP}
+                        docker push ${DOCKERHUB_USERNAME}/cms-codesqad:latest
                     '''
                 }
             }

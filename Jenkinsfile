@@ -5,7 +5,7 @@ pipeline {
             // Generate a timestamp for versioning the Docker image
             BUILD_TIMESTAMP = sh(returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
             // Docker Hub credentials stored in Jenkins
-            DOCKER_REGISTRY_CREDENTIALS = credentials('Nunarijal12#')
+            DOCKER_REGISTRY_CREDENTIALS = 'Nunarijal12#'
             // Docker Hub username
             DOCKERHUB_USERNAME = 'rijalsujan'
         }

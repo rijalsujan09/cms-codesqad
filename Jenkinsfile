@@ -43,7 +43,6 @@ pipeline {
 
                             sh '''
                                 docker run --rm \
-                                    --user $(id -u):$(id -g) \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     aquasec/trivy:latest image \
                                     rijalsujan09/cms-codesqad:latest

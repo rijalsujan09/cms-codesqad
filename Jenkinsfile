@@ -47,10 +47,10 @@ pipeline {
                                 docker run --rm \
                                     --user $(id -u):$(id -g) \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
-                                    -v $(pwd)/trivy-reports:/trivy-reports \
+                                    -v $(pwd)/trivy-reports:/root/.cache/ \
                                     aquasec/trivy:latest image \
                                     --format table  \
-                                    --output trivy-reports/trivy-report.txt \
+                                    --output /root/.cache/trivy-report.txt \
                                     rijalsujan09/cms-codesqad:latest
 
 

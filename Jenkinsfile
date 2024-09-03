@@ -5,9 +5,9 @@ pipeline {
             // Generate a timestamp for versioning the Docker image
             BUILD_TIMESTAMP = sh(returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
             // Docker Hub credentials stored in Jenkins
-            DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
+//             DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
             // Docker Hub username
-            DOCKERHUB_USERNAME = 'rijalsujan09'
+//             DOCKERHUB_USERNAME = 'rijalsujan09'
         }
     stages {
         stage ('Unit Test') {
@@ -45,17 +45,8 @@ pipeline {
 
         stage ('Publish') {
             steps {
-
-                        echo 'publish started'
-                        echo 'publish started'
-
-
-//                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-//                     sh '''
-//                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:${BUILD_TIMESTAMP}
-//                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:latest
-//                     '''
-//                 }
+                echo 'publish started'
+                echo 'publish completed'
             }
         }
     }

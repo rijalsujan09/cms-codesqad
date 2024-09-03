@@ -51,7 +51,6 @@ tasks.named('bootBuildImage') {
 
 tasks.named('test') {
 	useJUnitPlatform()
-	enabled = false
 }
 
 

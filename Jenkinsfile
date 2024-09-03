@@ -20,11 +20,7 @@ pipeline {
         stage ('Compile') {
             steps {
                             sh '''
-                                docker run --rm -v $(pwd):/tmp gradle:jdk17 bash -c "
-                                    cd /tmp &&
-                                    chmod +x ./gradlew &&
-                                    ./gradlew build
-                                "
+                                docker run --rm -v $(pwd):/tmp gradle:jdk17 bash -c " cd /tmp && chmod +x ./gradlew && ./gradlew build "
                             '''
             }
         }

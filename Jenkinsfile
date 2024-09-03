@@ -5,9 +5,9 @@ pipeline {
             // Generate a timestamp for versioning the Docker image
             BUILD_TIMESTAMP = sh(returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
             // Docker Hub credentials stored in Jenkins
-//             DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
+            DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
             // Docker Hub username
-//             DOCKERHUB_USERNAME = 'rijalsujan09'
+            DOCKERHUB_USERNAME = 'rijalsujan09'
         }
     stages {
         stage ('Unit Test') {
@@ -32,7 +32,7 @@ pipeline {
         stage ('Build') {
             steps {
                 sh '''
-                    docker build --build-arg DOCKER_TAG=${BUILD_TIMESTAMP} -t your-dockerhub-username/cms-codesqad:${BUILD_TIMESTAMP} -t your-dockerhub-username/cms-codesqad:latest .
+                    docker build --build-arg DOCKER_TAG=${BUILD_TIMESTAMP} -t rijalsujan09/cms-codesqad:${BUILD_TIMESTAMP} -t rijalsujan09/cms-codesqad:latest .
                 '''
             }
         }
@@ -47,7 +47,7 @@ pipeline {
                                     aquasec/trivy:latest image \
                                     --format table  \
                                     --output trivy-reports/trivy-report.txt \
-                                    hrbr.dev.castera.us/ega/auth-service:${BUILD_TIMESTAMP}
+                                    rijalsujan09/cms-codesqad:latest
 
                             '''
                         }

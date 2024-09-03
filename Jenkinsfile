@@ -53,9 +53,6 @@ pipeline {
                                     --output /root/.cache/trivy-report.txt \
                                     rijalsujan09/cms-codesqad:latest
 
-
-                                echo "<html><body><pre>$(cat trivy-reports/trivy-report.txt)</pre></body></html>" > trivy-reports/trivy-report.html
-
                             '''
                         }
 

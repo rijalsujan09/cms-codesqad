@@ -37,6 +37,9 @@ pipeline {
 
         stage ('Scan') {
             steps {
+                            // Ensure the directory exists
+                            mkdir -p $(pwd)/trivy-reports
+
                             // Run Trivy to scan the built Docker image
                             sh '''
                                 docker run --rm \
@@ -52,7 +55,7 @@ pipeline {
 
                         post {
                             always {
-                                archiveArtifacts artifacts: 'trivy-report.txt', allowEmptyArchive: true
+                                archiveArtifacts artifacts: 'trivy-reports/trivy-report.txt', allowEmptyArchive: true
                             }
                         }
         }

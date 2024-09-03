@@ -5,9 +5,9 @@ pipeline {
             // Generate a timestamp for versioning the Docker image
             BUILD_TIMESTAMP = sh(returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
             // Docker Hub credentials stored in Jenkins
-//             DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
+            DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
             // Docker Hub username
-//             DOCKERHUB_USERNAME = 'rijalsujan09'
+            DOCKERHUB_USERNAME = 'rijalsujan09'
         }
     stages {
         stage ('Unit Test') {
@@ -54,7 +54,7 @@ pipeline {
 
                         post {
                             always {
-                                archiveArtifacts artifacts: 'trivy-reports/*', allowEmptyArchive: true
+                                archiveArtifacts artifacts: 'trivy-reports.txt', allowEmptyArchive: true
                             }
                         }
         }

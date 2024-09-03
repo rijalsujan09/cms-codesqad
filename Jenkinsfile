@@ -45,7 +45,7 @@ pipeline {
 
         stage ('Publish') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://registry-1.docker.io/v2/) {
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
                     sh '''
                         docker push rijalsujan/cms-codesqad:${BUILD_TIMESTAMP}
                         docker push rijalsujan/cms-codesqad:latest

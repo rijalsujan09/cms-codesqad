@@ -46,7 +46,7 @@ pipeline {
                                     -v $(pwd)/trivy-reports:/root/.cache/ \
                                     aquasec/trivy:latest image \
                                     --format table  \
-                                    --output trivy-reports/trivy-report.txt \
+                                    --output trivy-report.txt \
                                     rijalsujan09/cms-codesqad:latest
 
                             '''

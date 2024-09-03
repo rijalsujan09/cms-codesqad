@@ -37,11 +37,10 @@ pipeline {
 
         stage ('Scan') {
             steps {
-                            // Ensure the directory exists
-                            mkdir -p trivy-reports
 
-                            // Run Trivy to scan the built Docker image
+
                             sh '''
+                                mkdir -p trivy-reports
                                 docker run --rm \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     -v $(pwd)/trivy-reports:/root/.cache/ \

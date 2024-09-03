@@ -11,7 +11,7 @@ pipeline {
         stage ('Unit Test') {
             steps {
                 echo "Build Timestamp: ${env.BUILD_TIMESTAMP}"
-                sh './gradlew test'
+                gradle test
                 echo 'Unit Tests Passed!'
             }
         }

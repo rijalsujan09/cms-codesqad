@@ -39,8 +39,24 @@ pipeline {
 
         stage ('Scan') {
             steps {
-                echo 'Scanning Passed!'
-            }
+                            // Run Trivy to scan the built Docker image
+                            sh '''
+                                docker run --rm \
+                                    -v /var/run/docker.sock:/var/run/docker.sock \
+                                    -v $(pwd)/trivy-reports:/root/.cache/ \
+                                    aquasec/trivy:latest image \
+                                    --format table  \
+                                    --output trivy-reports/trivy-report.txt \
+                                    hrbr.dev.castera.us/ega/auth-service:${BUILD_TIMESTAMP}
+
+                            '''
+                        }
+
+                        post {
+                            always {
+                                archiveArtifacts artifacts: 'trivy-reports/*', allowEmptyArchive: true
+                            }
+                        }
         }
 
         stage ('Publish') {

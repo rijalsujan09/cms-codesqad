@@ -75,7 +75,7 @@ pipeline {
                        to: 'contact.rijalsujan09@gmail.com',
                        subject: subject,
                        body: message,
-                       attachLog: true
+                       attachLog: true,
                        retry: 5,
                        retryWaitIntervalSeconds: 5
                    )
@@ -89,7 +89,7 @@ pipeline {
                        to: 'contact.rijalsujan09@gmail.com',
                        subject: subject,
                        body: message,
-                       attachLog: true
+                       attachLog: true,
                        retry: 5,
                        retryWaitIntervalSeconds: 5
                    )

@@ -46,8 +46,6 @@ pipeline {
                                     --user $(id -u):$(id -g) \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     aquasec/trivy:latest image \
-                                    --format table  \
-                                    --output /root/.cache/trivy-report.txt \
                                     rijalsujan09/cms-codesqad:latest
                             '''
                         }

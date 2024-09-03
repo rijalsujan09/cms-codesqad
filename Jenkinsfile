@@ -55,7 +55,7 @@ pipeline {
 //                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:${BUILD_TIMESTAMP}
 //                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:latest
 //                     '''
-                }
+//                 }
             }
         }
     }

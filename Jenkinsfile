@@ -52,7 +52,7 @@ pipeline {
 
                         post {
                             always {
-                                archiveArtifacts artifacts: 'trivy-reports.txt', allowEmptyArchive: true
+                                archiveArtifacts artifacts: 'trivy-report.txt', allowEmptyArchive: true
                             }
                         }
         }

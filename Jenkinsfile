@@ -40,7 +40,7 @@ pipeline {
 
 
                             sh '''
-                                mkdir -p trivy-reports
+                                mkdir -p $(pwd)/trivy-reports
                                 docker run --rm \
                                     -v /var/run/docker.sock:/var/run/docker.sock \
                                     -v $(pwd)/trivy-reports:/root/.cache/ \

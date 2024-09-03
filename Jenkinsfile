@@ -38,7 +38,7 @@ pipeline {
         stage ('Scan') {
             steps {
                             // Ensure the directory exists
-                            mkdir -p ${pwd}/trivy-reports
+                            mkdir -p trivy-reports
 
                             // Run Trivy to scan the built Docker image
                             sh '''

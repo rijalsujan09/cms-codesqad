@@ -45,11 +45,16 @@ pipeline {
 
         stage ('Publish') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                    sh '''
-                        docker push ${DOCKERHUB_USERNAME}/cms-codesqad:${BUILD_TIMESTAMP}
-                        docker push ${DOCKERHUB_USERNAME}/cms-codesqad:latest
-                    '''
+
+                        echo 'publish started'
+                        echo 'publish started'
+
+
+//                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
+//                     sh '''
+//                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:${BUILD_TIMESTAMP}
+//                         docker push ${DOCKERHUB_USERNAME}/cms-codesqad:latest
+//                     '''
                 }
             }
         }

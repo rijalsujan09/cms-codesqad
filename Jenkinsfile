@@ -7,7 +7,7 @@ pipeline {
             // Docker Hub credentials stored in Jenkins
             DOCKER_REGISTRY_CREDENTIALS = credentials('dockerhub')
             // Docker Hub username
-            DOCKERHUB_USERNAME = 'rijalsujan'
+            DOCKERHUB_USERNAME = 'rijalsujan09'
         }
     stages {
         stage ('Unit Test') {

@@ -55,19 +55,6 @@ pipeline {
 
                             '''
                         }
-
-                        post {
-                            always {
-                                publishHTML(target: [
-                                    allowMissing: false,
-                                    alwaysLinkToLastBuild: true,
-                                    keepAll: true,
-                                    reportDir: 'trivy-reports',
-                                    reportFiles: 'trivy-report.html',
-                                    reportName: "Trivy Scan Report"
-                                ])
-                            }
-                        }
         }
 
         stage ('Publish') {

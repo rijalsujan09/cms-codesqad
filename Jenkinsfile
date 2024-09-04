@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage ('Scan') {
+        stage ('Scanner') {
             steps {
 
                             sh '''

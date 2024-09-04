@@ -77,9 +77,7 @@ pipeline {
                        to: 'contact.rijalsujan09@gmail.com',
                        subject: subject,
                        body: message,
-                       attachLog: true,
-                       retry: 5,
-                       retryWaitIntervalSeconds: 5
+                       attachLog: true
                    )
                }
            }
@@ -91,9 +89,7 @@ pipeline {
                        to: 'contact.rijalsujan09@gmail.com',
                        subject: subject,
                        body: message,
-                       attachLog: true,
-                       retry: 5,
-                       retryWaitIntervalSeconds: 5
+                       attachLog: true
                    )
                }
            }

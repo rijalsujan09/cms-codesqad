@@ -66,9 +66,9 @@ pipeline {
         }
     }
    post {
-           always {
-               //cleanWs()
-           }
+//            always {
+//                //cleanWs()
+//            }
            failure {
                script {
                    def message = "Build or Test failed at stage: ${currentBuild.currentResult}. Please check the logs for details."

@@ -40,7 +40,7 @@ pipeline {
                                 docker run --dns 8.8.8.8  --rm \
                                     -v $(pwd)/trivy-reports:/var/trivy-reports/ \
                                     aquasec/trivy:latest image \
-                                    --exit-code 0 --no-progress -f table -o  /var/trivy-reports/test.txt
+                                    --exit-code 0 --no-progress -f table -o /var/trivy-reports/test.txt \
                                     rijalsujan09/cms-codesqad:latest
                             '''
 

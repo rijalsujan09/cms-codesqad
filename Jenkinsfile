@@ -20,7 +20,7 @@ pipeline {
         stage ('Compile') {
             steps {
                             sh '''
-                                docker run --rm -v $(pwd):/tmp gradle:jdk17 bash -c " cd /tmp && chmod +x ./gradlew && ./gradlew clean build "
+                                docker run --dns 8.8.8.8 --rm -v $(pwd):/tmp gradle:jdk17 bash -c " cd /tmp && chmod +x ./gradlew && ./gradlew clean build "
                             '''
             }
         }
@@ -35,18 +35,17 @@ pipeline {
 
         stage ('Scanner') {
             steps {
-
+                            echo 'Running Trivy Scan...'
                             sh '''
-                                docker run --rm \
-                                    -v /var/run/docker.sock:/var/run/docker.sock \
+                                docker run --dns 8.8.8.8  --rm \
+                                    -v $(pwd)/trivy-reports:/var/trivy-reports/ \
                                     aquasec/trivy:latest image \
+                                    --exit-code 0 --no-progress -f table -o  /var/trivy-reports/test.txt
                                     rijalsujan09/cms-codesqad:latest
                             '''
 
-                            echo 'Running Trivy Scan...'
-                            sh '''
-                                trivy image ${DOCKERHUB_USERNAME}/cms-codesqad:latest
-                            '''
+                            echo 'Complete Trivy Scan...'
+
 
             }
         }
